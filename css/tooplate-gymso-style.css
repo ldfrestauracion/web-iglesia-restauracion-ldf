@@ -188,42 +188,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
     color: var(--white-color);
   }
 
-  /*---------------------------------------
-     BOTONES - VER EN YOUTUBE               
-  -----------------------------------------*/
-
-  /* Botón YouTube rojo */
-  .custom-btn.btn-youtube{
-    background-color:#FF0000;
-    border-color:#FF0000;
-    color:#fff;
-  }
-
-  /* Zoom rápido en hover/focus (no cambia el color) */
-  .custom-btn.btn-zoom{
-    transform: translateZ(0);
-    transition: transform .12s cubic-bezier(.2,.8,.2,1), box-shadow .12s ease;
-    will-change: transform;
-  }
-  .custom-btn.btn-zoom:hover,
-  .custom-btn.btn-zoom:focus{
-    transform: scale(1.045);
-    box-shadow: 0 10px 20px rgba(0,0,0,.18);
-    color:#fff;                /* evita que alguna regla lo ponga azul */
-    text-decoration:none;
-  }
-  .custom-btn.btn-zoom:active{
-    transform: scale(.98);
-    box-shadow: 0 6px 12px rgba(0,0,0,.20) inset;
-  }
-
-  /* Respeto a usuarios con reducir animaciones */
-  @media (prefers-reduced-motion: reduce){
-    .custom-btn.btn-zoom{ transition:none }
-    .custom-btn.btn-zoom:hover,
-    .custom-btn.btn-zoom:focus,
-    .custom-btn.btn-zoom:active{ transform:none; box-shadow:none }
-  }
 
   /*---------------------------------------
      GENERAL               
@@ -463,13 +427,11 @@ https://www.tooplate.com/view/2119-gymso-fitness
   HORARIOS
 ----------------------------------------*/
   .horarios { background: var(--dark-color); }
-  /* Compacta un poco el padding vertical de esta sección en oscuro */
-  .horarios.section { padding-top: 48px; padding-bottom: 48px; }
+  
+  .horarios.section { padding-top: 150px; padding-bottom: 200px; }
 
-  /* Encabezado dentro de fondo oscuro */
   .horarios .section-subtitle { max-width: 720px; margin: 8px auto 0; }
 
-  /* Tarjetas */
   .horario-card{
     background:#ffffff;
     border-radius:14px;
@@ -504,15 +466,6 @@ https://www.tooplate.com/view/2119-gymso-fitness
     color:#6b7280; /* gris legible en tarjeta blanca */
     font-size:.95rem;
   }
-
-  /* Responsive: más compacto en móvil */
-  @media (max-width: 576px){
-    .horario-card{ padding:14px 16px; }
-    .badge-day{ font-size:.9rem; padding:5px 10px; }
-    .horarios .col-12.mb-3{ margin-bottom:12px !important; }
-  }
-
-
 
   /*---------------------------------------
       ABOUT & TEAM            

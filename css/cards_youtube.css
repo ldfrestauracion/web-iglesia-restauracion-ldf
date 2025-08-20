@@ -1,0 +1,34 @@
+/* ==== Cards YouTube minimal ==== */
+.yt-card{
+  background:#fff;border-radius:16px;overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.yt-card:hover{ transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
+
+.yt-thumb{ position:relative; display:block; aspect-ratio:16/9; overflow:hidden; }
+.yt-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
+.yt-card:hover .yt-thumb img{ transform:scale(1.04); }
+
+.yt-overlay{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(to top,rgba(0,0,0,.45),rgba(0,0,0,.05) 100%,transparent);
+  color:#fff; font-weight:600; gap:.5rem; opacity:0; transition:opacity .25s ease;
+}
+.yt-card:hover .yt-overlay{ opacity:1; }
+
+.yt-badge{ position:absolute; right:.6rem; bottom:.6rem;
+  background:rgba(0,0,0,.75); color:#fff; border-radius:.5rem; padding:.15rem .45rem; font-size:.8rem;
+}
+
+.yt-title{
+  margin:0; padding:14px 16px 6px; font-size:1.1rem; line-height:1.35;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.yt-title a{ color:#111; text-decoration:none; }
+.yt-title a:hover{ text-decoration:underline; }
+
+.yt-meta{ padding:0 16px 14px; display:flex; align-items:center; gap:.5rem; color:#666; font-size:.9rem; }
+.yt-pill{ margin-left:auto; background:#e1342e; color:#ffffff; border-radius:999px; padding:.15rem .5rem; font-size:.75rem; font-weight:600; }
+
+
