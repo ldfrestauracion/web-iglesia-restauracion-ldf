@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ldfrestauracion.github.io/web-iglesia-restauracion-ldf/sitemap.xml
