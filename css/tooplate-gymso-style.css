@@ -661,39 +661,3 @@ https://www.tooplate.com/view/2119-gymso-fitness
       display: block;
     }
   }
-
-
-
-  /* ===== VISIBILIDAD FORZADA EN MÓVIL ===== */
-
-/* Quita cualquier overlay que se salga del hero */
-.hero { position: relative; z-index: 0; }
-.hero .bg-overlay{
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 0 !important;
-  pointer-events: none !important;
-}
-/* Si hay overlays globales, NO permitir fixed */
-.bg-overlay{ position: absolute !important; }
-
-/* Que todo lo con animaciones AOS sea visible en móvil */
-@media (max-width: 991.98px){
-  [data-aos]{
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-  }
-}
-
-/* #recientes y listas de YouTube siempre visibles */
-#recientes, #yt-recientes, #yt-canciones{
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
-}
-.yt-thumb img{
-  display:block !important;
-  width:100% !important;
-  height:auto !important;
-}

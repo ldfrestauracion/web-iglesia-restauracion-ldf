@@ -34,48 +34,6 @@
 <link rel="stylesheet" href="css/cards_youtube.css">
 </head>
 
-<script>
-/* Parche móvil: mata overlays y AOS si están estorbando */
-(function(){
-  var isMobile = window.matchMedia('(max-width: 991.98px)').matches;
-
-  // 2.1 Quita overlays agresivamente en móvil
-  if(isMobile){
-    document.querySelectorAll('.bg-overlay').forEach(el => {
-      // si está fuera del hero o se salió, elimínalo
-      if (!el.closest('.hero')) el.remove();
-    });
-  }
-
-  // 2.2 Si AOS existe, desactívalo en móvil; si no, fuerza visibilidad
-  function forceVisibleMobile(){
-    if(!isMobile) return;
-    document.querySelectorAll('[data-aos]').forEach(el=>{
-      el.removeAttribute('data-aos');
-      el.classList.remove('aos-init','aos-animate');
-      el.style.opacity   = '1';
-      el.style.transform = 'none';
-      el.style.visibility= 'visible';
-    });
-    ['yt-recientes','yt-canciones'].forEach(id=>{
-      var c = document.getElementById(id);
-      if(c){ c.style.opacity='1'; c.style.visibility='visible'; c.style.display='block'; }
-    });
-  }
-
-  try{
-    if (window.AOS && typeof AOS.init === 'function') {
-      AOS.init({ once:true, disable: () => window.innerWidth < 992 });
-      // por si ya dejó algo oculto:
-      forceVisibleMobile();
-    } else {
-      forceVisibleMobile();
-    }
-  }catch(e){ forceVisibleMobile(); }
-})();
-</script>
-
-
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
 
     <!-- MENU BAR -->
