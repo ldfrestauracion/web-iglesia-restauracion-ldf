@@ -47,6 +47,7 @@
 .yt-card iframe { width:100%; height:100%; display:block; }
 
 @media (max-width: 991.98px) {
+    [data-aos] { opacity: 1 !important; transform: none !important; }
   #yt-recientes [data-aos],
   #yt-canciones [data-aos] {
     opacity: 1 !important;

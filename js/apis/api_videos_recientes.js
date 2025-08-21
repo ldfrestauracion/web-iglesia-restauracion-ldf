@@ -123,19 +123,22 @@ function formatDuration(sec){
 
 
 function cardHTML(v, i){
-  const esc = s => String(s||'').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-  const url = `https://www.youtube.com/watch?v=${v.id}`;
+  const esc  = s => String(s||'').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const url  = `https://www.youtube.com/watch?v=${v.id}`;
   const date = v.publishedAt ? new Date(v.publishedAt).toLocaleDateString('es-GT',{day:'2-digit',month:'short',year:'numeric'}) : '';
   const dur  = v.durationSec ? formatDuration(v.durationSec) : '';
 
+  // Solo animamos en ≥992px (Bootstrap lg)
+  const isDesktop = window.matchMedia('(min-width: 992px)').matches;
+  const aosAttr   = isDesktop ? `data-aos="fade-up" data-aos-delay="${400 + (i||0)*100}"` : '';
+
   return `
-  <div class="col-lg-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="${400 + (i||0)*100}">
+  <div class="col-lg-4 col-md-6 col-12 mb-4" ${aosAttr}>
     <article class="yt-card">
       <a class="yt-thumb" href="${url}" target="_blank" rel="noopener" aria-label="Ver en YouTube: ${esc(v.title)}">
         <img src="${v.thumbUrl}" alt="${esc(v.title)}" loading="lazy">
         ${dur ? `<span class="yt-badge">${dur}</span>` : ``}
         <span class="yt-overlay">
-          <!-- icono play minimal con texto -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
           <span>Ver en YouTube</span>
         </span>
@@ -148,11 +151,14 @@ function cardHTML(v, i){
     </article>
   </div>`;
 }
+
 function skeleton(n) {
+  const isDesktop = window.matchMedia('(min-width: 992px)').matches;
   let out = '';
   for (let i = 0; i < n; i++) {
+    const aosAttr = isDesktop ? `data-aos="fade-up" data-aos-delay="${400 + i*100}"` : '';
     out += `
-    <div class="col-lg-4 col-md-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="${400 + i*100}">
+    <div class="col-lg-4 col-md-6 col-12 mb-4" ${aosAttr}>
       <div class="class-thumb embed-card">
         <div class="embed-responsive embed-responsive-16by9 bg-light d-flex align-items-center justify-content-center" style="min-height:180px">
           <span>Cargando…</span>
@@ -168,6 +174,7 @@ function skeleton(n) {
   }
   return out;
 }
+
 
 /* ========================= PLAYLIST "CANCIONES" ========================= */
 
