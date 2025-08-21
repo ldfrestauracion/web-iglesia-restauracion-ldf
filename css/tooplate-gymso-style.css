@@ -263,7 +263,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
   .nuevo {
     background: var(--dark-color);
-    padding: 5rem 0;
+    padding: 11rem 0;
   }
 
 
@@ -422,13 +422,14 @@ https://www.tooplate.com/view/2119-gymso-fitness
     text-align: center;
   }
 
-
+ .recientes.section { padding-top: 115px; padding-bottom: 200px; }
+  .conocenos.section { padding-top: 80px; padding-bottom: 200px; }
   /*---------------------------------------
   HORARIOS
 ----------------------------------------*/
   .horarios { background: var(--dark-color); }
   
-  .horarios.section { padding-top: 150px; padding-bottom: 200px; }
+  .horarios.section { padding-top: 110px; padding-bottom: 200px; }
 
   .horarios .section-subtitle { max-width: 720px; margin: 8px auto 0; }
 
