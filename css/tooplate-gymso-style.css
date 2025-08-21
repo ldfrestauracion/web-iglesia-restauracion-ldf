@@ -663,20 +663,21 @@ https://www.tooplate.com/view/2119-gymso-fitness
   }
 
 
-  /* ========= HOTFIX VISIBILIDAD EN MÓVIL ========= */
 
-/* 1) Asegurar capas correctas del hero vs resto */
+  /* ===== VISIBILIDAD FORZADA EN MÓVIL ===== */
+
+/* Quita cualquier overlay que se salga del hero */
 .hero { position: relative; z-index: 0; }
 .hero .bg-overlay{
   position: absolute !important;
-  inset: 0 !important;           /* top/right/bottom/left: 0 */
-  z-index: 0 !important;         /* debajo del texto del hero */
+  inset: 0 !important;
+  z-index: 0 !important;
   pointer-events: none !important;
 }
-/* Todo lo que viene después del hero queda arriba del overlay */
-section[id]{ position: relative; z-index: 2; }
+/* Si hay overlays globales, NO permitir fixed */
+.bg-overlay{ position: absolute !important; }
 
-/* 2) En móviles: si AOS no inicializa, que todo se vea */
+/* Que todo lo con animaciones AOS sea visible en móvil */
 @media (max-width: 991.98px){
   [data-aos]{
     opacity: 1 !important;
@@ -685,18 +686,14 @@ section[id]{ position: relative; z-index: 2; }
   }
 }
 
-/* 3) Asegurar que las tarjetas/miniaturas se rendericen siempre */
-#yt-recientes, #yt-canciones{
+/* #recientes y listas de YouTube siempre visibles */
+#recientes, #yt-recientes, #yt-canciones{
   opacity: 1 !important;
   visibility: visible !important;
+  display: block !important;
 }
-.yt-thumb{ display:block !important; position: relative; }
 .yt-thumb img{
   display:block !important;
   width:100% !important;
   height:auto !important;
 }
-
-/* 4) Por si algún overlay global quedó 'fixed' por el template */
-.bg-overlay{ position: absolute !important; }  /* nunca fixed */
-
