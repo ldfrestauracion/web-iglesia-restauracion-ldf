@@ -661,3 +661,47 @@ https://www.tooplate.com/view/2119-gymso-fitness
       display: block;
     }
   }
+
+
+
+  /* ===== PARCHE EMERGENCIA MÓVIL ===== */
+
+/* 0) Si el overlay es el culpable, lo apagamos globalmente */
+@media (max-width: 991.98px){
+  .bg-overlay{ display: none !important; }
+}
+
+/* 1) Si AOS no inicializa en móvil, que todo sea visible igual */
+@media (max-width: 991.98px){
+  .aos-init,
+  [data-aos]{
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+}
+
+/* 2) Asegura stacking correcto: las secciones por encima de fondos */
+section[id]{ position: relative; z-index: 2; }
+
+/* 3) Las listas de YouTube siempre visibles */
+#recientes,
+#yt-recientes,
+#yt-canciones{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 4) Las miniaturas IMG no quedan colapsadas */
+#yt-recientes img,
+#yt-canciones img{
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* 5) Desactiva scroll-snap en móvil (por si estuviera activo en tu CSS) */
+@media (max-width: 991.98px){
+  html, body{ scroll-snap-type: none !important; }
+}

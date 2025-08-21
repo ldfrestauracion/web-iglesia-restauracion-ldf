@@ -169,3 +169,133 @@ function skeleton(n) {
   return out;
 }
 
+/* ========================= PLAYLIST "CANCIONES" ========================= */
+
+// Config de playlist: usa UNO de los dos métodos
+const MUSIC_PLAYLIST_ID   = 'PLLOkduBhQHmRJjaxg_u_1bkCTO-8XHg5R';
+const MUSIC_PLAYLIST_NAME = 'Canciones';  
+const COUNT_SONGS         = 3; 
+
+// Inicializa al cargar
+document.addEventListener('DOMContentLoaded', initYTCanciones);
+
+// 1) Entrada principal
+function initYTCanciones() {
+  const cont = document.getElementById('yt-canciones');
+  if (!cont) return;
+
+  cont.innerHTML = skeleton(COUNT_SONGS);
+
+  const pid = (MUSIC_PLAYLIST_ID || '').trim();
+  if (!pid) {
+    cont.innerHTML = `<div class="col-12"><div class="alert alert-warning">Falta el ID de la playlist.</div></div>`;
+    return;
+  }
+
+  // Traemos hasta 50 ítems de la playlist y elegimos los 3 más recientes
+  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${pid}&maxResults=50&key=${YT_CFG.API_KEY}`;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(j => {
+      const items = (j.items || []).map(it => {
+        const s  = it.snippet || {};
+        const cd = it.contentDetails || {};
+        const thumbs = s.thumbnails || {};
+        const thumbUrl = (thumbs.maxres || thumbs.standard || thumbs.high || thumbs.medium || thumbs.default || {}).url
+                         || `https://i.ytimg.com/vi/${cd.videoId}/hqdefault.jpg`;
+        return {
+          id: cd.videoId || s.resourceId?.videoId,
+          title: s.title || '',
+          // fecha real de publicación del video (mejor que la fecha de agregado a la playlist)
+          publishedAt: cd.videoPublishedAt || s.publishedAt || '',
+          thumbUrl
+        };
+      }).filter(v => !!v.id);
+
+      // Orden descendente por fecha real y tomar SOLO 3
+      const top3 = items
+        .sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+        .slice(0, COUNT_SONGS);
+
+      if (!top3.length) {
+        cont.innerHTML = `<div class="col-12"><div class="alert alert-warning">La playlist no tiene videos públicos.</div></div>`;
+        return;
+      }
+
+      cont.innerHTML = top3.map(cardHTML).join('');
+      if (window.AOS && typeof AOS.refresh === 'function') AOS.refresh();
+    })
+    .catch(err => {
+      console.error('Playlist canciones:', err);
+      cont.innerHTML = `
+        <div class="col-12">
+          <div class="alert alert-warning">
+            No pudimos cargar la playlist. 
+            <a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=${encodeURIComponent(pid)}">Abrir en YouTube</a>
+          </div>
+        </div>`;
+    });
+}
+
+// 2) Asegura obtener el ID de la playlist
+function asegurarPlaylistId() {
+  const id = (MUSIC_PLAYLIST_ID || '').trim();
+  if (id) return Promise.resolve(id);
+  // buscar por nombre dentro del canal
+  return buscarPlaylistPorNombre(YT_CFG.CHANNEL_ID, MUSIC_PLAYLIST_NAME, YT_CFG.API_KEY);
+}
+
+// 3) Buscar playlist por nombre (si no tienes el ID)
+function buscarPlaylistPorNombre(channelId, nombre, key) {
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=playlist&maxResults=25&q=${encodeURIComponent(nombre)}&key=${key}`;
+  return fetch(url)
+    .then(r => r.json())
+    .then(j => {
+      if (j.error) throw new Error(j.error.message || 'Error de API al buscar playlist.');
+      const pl = (j.items || [])[0];
+      return pl?.id?.playlistId || null;
+    })
+    .catch(() => null);
+}
+
+// 4) Enriquecer con duración y detectar lives
+function enriquecerConDuracionYLive(videos, key) {
+  if (!videos.length) return Promise.resolve([]);
+  const ids = [...new Set(videos.map(v => v.id))].join(',');
+  const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet,liveStreamingDetails&id=${ids}&key=${key}`;
+  return fetch(url).then(r => r.json()).then(j => {
+    if (j.error) throw new Error(j.error.message || 'Error obteniendo detalles de videos.');
+    const map = new Map();
+    (j.items || []).forEach(it => {
+      const id  = it.id;
+      const dur = it.contentDetails?.duration || 'PT0S';
+      const sec = isoDurationToSeconds(dur);
+      const sn  = it.snippet || {};
+      const lsd = it.liveStreamingDetails;
+      map.set(id, {
+        duration: dur,
+        durationSec: sec,
+        publishedAt: sn.publishedAt,
+        thumbs: sn.thumbnails,
+        isLive: !!lsd  // true si fue/está como live/premiere
+      });
+    });
+
+    return videos.map(v => {
+      const extra = map.get(v.id) || {};
+      const thumbs = extra.thumbs || v.thumbs || {};
+      const thumbUrl = (thumbs.maxres || thumbs.standard || thumbs.high || thumbs.medium || thumbs.default || {}).url
+        || `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
+
+      return {
+        ...v,
+        publishedAt: extra.publishedAt || v.publishedAt,
+        duration: extra.duration,
+        durationSec: extra.durationSec,
+        thumbUrl,
+        isLive: !!extra.isLive
+      };
+    });
+  });
+}
