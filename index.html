@@ -34,6 +34,17 @@
 <link rel="stylesheet" href="css/cards_youtube.css">
 </head>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.AOS && typeof AOS.init === 'function') {
+    // Desactiva AOS en pantallas chicas (para que no oculte nada)
+    AOS.init({
+      once: true,
+      disable: () => window.innerWidth < 992
+    });
+  }
+});
+</script>
 
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
 

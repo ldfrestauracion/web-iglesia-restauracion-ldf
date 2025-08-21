@@ -663,29 +663,20 @@ https://www.tooplate.com/view/2119-gymso-fitness
   }
 
 
+  /* --- FIX móvil: que todo lo con data-aos sea visible --- */
+@media (max-width: 991.98px){
+  [data-aos]{
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 
-  
-
-/* --- FIX: que el overlay del hero no tape el resto de la página --- */
+/* --- Por si el overlay del hero se estaba “comiendo” la vista en móvil --- */
 .hero { position: relative; z-index: 0; }
-
-/* Asegura que el overlay está ACOTADO al hero, debajo del texto, y no intercepta nada */
 .hero .bg-overlay{
   position: absolute !important;
-  inset: 0 !important;          /* top/right/bottom/left: 0 */
+  inset: 0 !important;
   z-index: 0 !important;
   pointer-events: none !important;
 }
-
-/* El texto del hero encima del overlay */
-.hero .container,
-.hero .hero-text{
-  position: relative;
-  z-index: 1;
-}
-
-/* Por si existe un .bg-overlay global con position: fixed en el template */
-.bg-overlay{ position: absolute !important; }  /* forzamos a no ser fixed */
-
-/* Asegura que TODAS las secciones queden por encima de fondos del hero */
 section[id]{ position: relative; z-index: 1; }
