@@ -1,5 +1,4 @@
 name: Deploy to GitHub Pages
-
 on:
   push:
     branches: ["main"]
@@ -21,7 +20,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "."          # publica la raíz del repo (donde está tu index.html)
+          path: "."   # tu index.html está en la raíz
   deploy:
     environment:
       name: github-pages
