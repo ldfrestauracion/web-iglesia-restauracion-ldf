@@ -29,10 +29,3 @@
 
     
 
-document.addEventListener('DOMContentLoaded', () => {
-  AOS.init({
-    duration: 700,
-    once: true,
-    disable: false,   // <— NADA de 'mobile' aquí
-  });
-});

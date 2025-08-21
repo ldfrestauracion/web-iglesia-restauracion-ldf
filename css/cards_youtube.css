@@ -32,25 +32,14 @@
 .yt-pill{ margin-left:auto; background:#e1342e; color:#ffffff; border-radius:999px; padding:.15rem .5rem; font-size:.75rem; font-weight:600; }
 
 
-/* Fallback cuando el navegador NO soporta aspect-ratio */
+/* Fallback si algún navegador no aplica aspect-ratio correctamente */
 @supports not (aspect-ratio: 1 / 1) {
   .yt-thumb { position: relative; display:block; overflow:hidden; }
-  .yt-thumb::before { content:""; display:block; padding-top:56.25%; } /* 16:9 */
-  .yt-thumb > img,
-  .yt-thumb > iframe {
-    position:absolute; inset:0;
-    width:100%; height:100%; display:block; object-fit:cover;
-  }
+  .yt-thumb::before { content:""; display:block; padding-top:56.25%; }
+  .yt-thumb > img, .yt-thumb > iframe { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; }
 }
 
-/* Por si usas iframes directamente dentro de las tarjetas */
-.yt-card iframe { width:100%; height:100%; display:block; }
-
+/* Si AOS está deshabilitado en móvil, que no deje nada oculto */
 @media (max-width: 991.98px) {
-    [data-aos] { opacity: 1 !important; transform: none !important; }
-  #yt-recientes [data-aos],
-  #yt-canciones [data-aos] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+  [data-aos] { opacity:1 !important; transform:none !important; }
 }
