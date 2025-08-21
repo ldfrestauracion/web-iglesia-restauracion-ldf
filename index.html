@@ -34,20 +34,6 @@
 <link rel="stylesheet" href="css/cards_youtube.css">
 </head>
 
-<script>
-window.addEventListener('error', e => {
-  console.log('JS error:', e.message);
-  const box = document.getElementById('yt-recientes');
-  if (box) box.insertAdjacentHTML('afterbegin',
-    '<div class="col-12"><div class="alert alert-danger">Error JS: '+e.message+'</div></div>');
-});
-window.addEventListener('unhandledrejection', e => {
-  console.log('Promise error:', e.reason);
-  const box = document.getElementById('yt-recientes');
-  if (box) box.insertAdjacentHTML('afterbegin',
-    '<div class="col-12"><div class="alert alert-warning">Error de red/API (revisa la API key y los referrers).</div></div>');
-});
-</script>
 
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
 
