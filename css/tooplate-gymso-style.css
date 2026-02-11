@@ -376,16 +376,14 @@ https://www.tooplate.com/view/2119-gymso-fitness
      HERO              
   -----------------------------------------*/
 
-  .hero {
-    background-image: url('../images/hero-bg.jpg');
+  .hero{
+    background-image: url('../images/PORTADA_WEB_IGLESIA.png');
     background-size: cover;
-    background-position: top;
+    background-position: center 100%; 
     background-repeat: no-repeat;
-    vertical-align: middle;
     min-height: 100vh;
     position: relative;
   }
-
 
   /*---------------------------------------
      CLASS               
