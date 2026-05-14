@@ -266,6 +266,15 @@ https://www.tooplate.com/view/2119-gymso-fitness
     padding: 11rem 0;
   }
 
+  .nuevo-photo {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+  }
+
 
   /*---------------------------------------
      MENU             
@@ -377,9 +386,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
   -----------------------------------------*/
 
   .hero{
-    background-image: url('../images/PORTADA_WEB_IGLESIA.png');
+    background-image: url('../images/PORTADA_WEB_IGLESIA_optimized.jpg');
     background-size: cover;
-    background-position: center 100%; 
+    background-position: center center;
     background-repeat: no-repeat;
     min-height: 100vh;
     position: relative;
@@ -486,6 +495,17 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
   .team-thumb {
     position: relative;
+  }
+
+  .team-thumb img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .historia-photo {
+    object-position: center 18%;
   }
 
   .team-info {
